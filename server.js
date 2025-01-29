@@ -7,6 +7,7 @@ import connectDB from './config/db.js';
 import userRoutes from './routes/userRoute.js';
 import todoRoutes from './routes/todoRoutes.js';
 
+
 connectDB();
 
 const app = express();
