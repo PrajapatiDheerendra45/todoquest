@@ -13,7 +13,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await axios.post("http://localhost:5000/api/users/login", { email, password });
-    console.log("response",response)
     dispatch(loginSuccess({ token: response.data.token }));
     navigate("/dashboard");
   };
