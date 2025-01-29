@@ -1,15 +1,15 @@
 // src/redux/authSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
-  name: 'auth',
-  initialState: { user: null },
+  name: "auth",
+  initialState: { token: null }, // Yeh fix hai
   reducers: {
     loginSuccess: (state, action) => {
-      state.user = action.payload;
+      state.token = action.payload.token; // Token ko sahi se store kar rahe hain
     },
     logout: (state) => {
-      state.user = null;
+      state.token = null;
     },
   },
 });

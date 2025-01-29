@@ -9,6 +9,8 @@ const Dashboard = () => {
   const { token } = useSelector((state) => state.auth);
   const [editTodo, setEditTodo] = useState(null);
 
+  console.log("Token in Redux:", token); // ✅ Debugging token
+
   useEffect(() => {
     if (token) dispatch(fetchTodos(token));
   }, [dispatch, token]);

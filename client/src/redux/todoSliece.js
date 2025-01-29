@@ -3,23 +3,34 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/todos";
 
+// ✅ Correct token usage in all requests
 export const fetchTodos = createAsyncThunk("todos/fetchTodos", async (token) => {
-  const response = await axios.get(API_URL, { headers: { Authorization: token } });
+  const response = await axios.get(API_URL, {
+    headers: { Authorization: `Bearer ${token}` }, // ✅ Token add kiya
+  });
   return response.data;
 });
 
 export const addTodo = createAsyncThunk("todos/addTodo", async ({ token, name, description }) => {
-  const response = await axios.post(API_URL, { name, description }, { headers: { Authorization: token } });
+  console.log("Frontend Token:", token); // ✅ Debugging token
+  const response = await axios.post("http://localhost:5000/api/todos", { name, description }, {
+    headers: { Authorization: `Bearer ${token}` }, // ✅ Token correctly set
+  });
   return response.data;
 });
 
+
 export const updateTodo = createAsyncThunk("todos/updateTodo", async ({ token, id, data }) => {
-  const response = await axios.put(`${API_URL}/${id}`, data, { headers: { Authorization: token } });
+  const response = await axios.put(`${API_URL}/${id}`, data, {
+    headers: { Authorization: `Bearer ${token}` }, // ✅ Token add kiya
+  });
   return response.data;
 });
 
 export const deleteTodo = createAsyncThunk("todos/deleteTodo", async ({ token, id }) => {
-  await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: token } });
+  await axios.delete(`${API_URL}/${id}`, {
+    headers: { Authorization: `Bearer ${token}` }, // ✅ Token add kiya
+  });
   return id;
 });
 
