@@ -32,7 +32,7 @@
 3. Start the backend server using `nodemon` or `node`:
    - Using `nodemon` (Recommended for development):
      ```bash
-     nodemon server.js
+     nodemon
      ```
    - Using `node`:
      ```bash
