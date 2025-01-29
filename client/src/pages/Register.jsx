@@ -10,20 +10,77 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/api/users/register", { name, email, password });
-    navigate("/");
+    try {
+      const response = await axios.post("http://localhost:5000/api/users/register", { name, email, password });
+      
+      // Success toast
+      alert("Registration successful! Please login.");
+      
+      navigate("/");  // Redirect to login page after registration
+    } catch (error) {
+      console.error("Error during registration", error);
+      
+      // Error toast
+     alert("Registration failed. Please try again.");
+    }
   };
-
+  
   return (
-    <div className="p-5 max-w-md mx-auto">
-      <h2 className="text-xl font-bold">Register</h2>
-      <form onSubmit={handleRegister} className="space-y-4">
-        <input className="border p-2 w-full" type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-        <input className="border p-2 w-full" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input className="border p-2 w-full" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button className="bg-green-500 text-white px-4 py-2">Register</button>
-      </form>
-      <div>Already Account <span> <a href="/">Login</a></span></div>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="p-8 max-w-md w-full bg-white shadow-lg rounded-lg space-y-6">
+        <h2 className="text-2xl font-semibold text-center text-gray-800">Create an Account</h2>
+        
+        <form onSubmit={handleRegister} className="space-y-6">
+          <div>
+            <input
+              className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              type="text"
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="w-full py-3 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 transition duration-300"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+
+        <div className="text-center">
+          <p className="text-gray-600">
+            Already have an account?{" "}
+            <span className="text-green-500 hover:text-green-700">
+              <a href="/">Login</a>
+            </span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

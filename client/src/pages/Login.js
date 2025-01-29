@@ -12,21 +12,66 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:5000/api/users/login", { email, password });
-    console.log("response",response)
-    dispatch(loginSuccess({ token: response.data.token }));
-    navigate("/dashboard");
+    try {
+      const response = await axios.post("http://localhost:5000/api/users/login", { email, password });
+      dispatch(loginSuccess({ token: response.data.token }));
+      
+      // Alert on successful login
+      alert("Login successful!");
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login failed", error);
+      alert("Login failed. Please check your credentials and try again.");
+    }
   };
 
   return (
-    <div className="p-5 max-w-md mx-auto">
-      <h2 className="text-xl font-bold">Login</h2>
-      <form onSubmit={handleLogin} className="space-y-4">
-        <input className="border p-2 w-full" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input className="border p-2 w-full" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button className="bg-blue-500 text-white px-4 py-2">Login</button>
-        <div>Does't Account <span> <a href="/Register">Register</a></span></div>
-      </form>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="p-8 max-w-md w-full bg-white shadow-lg rounded-lg space-y-6">
+        <h2 className="text-2xl font-semibold text-center text-gray-800">Login</h2>
+        
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <input
+              className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+
+        <div className="text-center">
+          <p className="text-gray-600">
+            Don't have an account? 
+            <span className="text-blue-500 hover:text-blue-700">
+              <a href="/Register">Register</a>
+            </span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
