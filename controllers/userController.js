@@ -11,10 +11,16 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+  console.log("JWT_SECRET:", process.env.JWT_SECRET); // Debugging
+
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (user && await bcrypt.compare(password, user.password)) {
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT_SECRET is missing!" });
+    }
+
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } else {
