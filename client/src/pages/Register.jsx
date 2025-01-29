@@ -11,25 +11,31 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/users/register", { name, email, password });
-      
+      const response = await axios.post("/api/users/register", {
+        name,
+        email,
+        password,
+      });
+
       // Success toast
       alert("Registration successful! Please login.");
-      
-      navigate("/");  // Redirect to login page after registration
+
+      navigate("/"); // Redirect to login page after registration
     } catch (error) {
       console.error("Error during registration", error);
-      
+
       // Error toast
-     alert("Registration failed. Please try again.");
+      alert("Registration failed. Please try again.");
     }
   };
-  
+
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="p-8 max-w-md w-full bg-white shadow-lg rounded-lg space-y-6">
-        <h2 className="text-2xl font-semibold text-center text-gray-800">Create an Account</h2>
-        
+        <h2 className="text-2xl font-semibold text-center text-gray-800">
+          Create an Account
+        </h2>
+
         <form onSubmit={handleRegister} className="space-y-6">
           <div>
             <input

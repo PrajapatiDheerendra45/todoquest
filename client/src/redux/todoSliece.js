@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/todos";
+const API_URL = "/api/todos";
 
 // ✅ Correct token usage in all requests
 export const fetchTodos = createAsyncThunk("todos/fetchTodos", async (token) => {
@@ -13,7 +13,7 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async (token) => 
 
 export const addTodo = createAsyncThunk("todos/addTodo", async ({ token, name, description }) => {
   console.log("Frontend Token:", token); // ✅ Debugging token
-  const response = await axios.post("http://localhost:5000/api/todos", { name, description }, {
+  const response = await axios.post("/api/todos", { name, description }, {
     headers: { Authorization: `Bearer ${token}` }, // ✅ Token correctly set
   });
   return response.data;

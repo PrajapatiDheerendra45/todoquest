@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", { email, password });
+      const response = await axios.post("/api/users/login", { email, password });
       dispatch(loginSuccess({ token: response.data.token }));
       
       // Alert on successful login
